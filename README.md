@@ -167,9 +167,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Ryan M.** - *Professional Network Solutions*
 
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@anRy823](https://github.com/anRy823)
 - Email: peicesreeses3@gmail.com
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
 
 ## 🙏 Acknowledgments
 

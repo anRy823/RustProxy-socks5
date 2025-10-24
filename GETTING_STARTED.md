@@ -1,6 +1,6 @@
 # 🚀 Getting Started with RustProxy
 
-**Created by [Your Name] - Professional Network Solutions**
+**Created by Ryan M. - Professional Network Solutions**
 
 Welcome to RustProxy! This guide will get you up and running in just a few minutes.
 
@@ -129,8 +129,8 @@ bind_addr = "127.0.0.1:8080"  # Use port 8080 instead of 1080
 
 You now have a professional-grade SOCKS5 proxy server running on your computer. 
 
-**Questions?** Contact [Your Name] at [your-email@domain.com]
+**Questions?** Contact Ryan M. at [peicesreeses3@gmail.com]
 
 ---
 
-*RustProxy - Created by [Your Name] - Professional Network Solutions*
+*RustProxy - Created by Ryan M. - Professional Network Solutions*

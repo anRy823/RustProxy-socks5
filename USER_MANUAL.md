@@ -2,7 +2,7 @@
 
 **A High-Performance SOCKS5 Proxy Server**
 
-*Created by [Your Name] - Professional Network Solutions*
+*Created by Ryan M. - Professional Network Solutions*
 
 ---
 
@@ -451,13 +451,13 @@ bind_addr = "0.0.0.0:1080"  # Listen on all network interfaces
 - **Updates**: Check for new releases regularly
 
 ### Professional Support
-For business use or custom configurations, contact [Your Name] at [your-email@domain.com]
+For business use or custom configurations, contact Ryan M. at [peicesreeses3@gmail.com]
 
 ---
 
 ## 📄 License & Credits
 
-**RustProxy** - Created by [Your Name]
+**RustProxy** - Created by Ryan M.
 
 This software is provided as-is for educational and personal use. 
 
@@ -494,4 +494,4 @@ Press `Ctrl+C` in the command prompt
 
 *Thank you for using RustProxy! 🚀*
 
-*For questions or support, contact [Your Name] - Professional Network Solutions*
+*For questions or support, contact Ryan M. - Professional Network Solutions*

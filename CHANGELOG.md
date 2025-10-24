@@ -6,7 +6,7 @@ All notable changes to RustProxy will be documented in this file.
 
 ### 🎉 Initial Release
 
-**RustProxy** - Professional SOCKS5 Proxy Server created by [Your Name]
+**RustProxy** - Professional SOCKS5 Proxy Server created by Ryan M.
 
 ### ✨ Features Added
 
@@ -101,4 +101,4 @@ All notable changes to RustProxy will be documented in this file.
 
 ---
 
-*Created by [Your Name] - Professional Network Solutions*
+*Created by Ryan M. - Professional Network Solutions*

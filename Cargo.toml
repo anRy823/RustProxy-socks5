@@ -2,7 +2,7 @@
 name = "rustproxy"
 version = "1.0.0"
 edition = "2021"
-authors = ["[Your Name] <your-email@domain.com>"]
+authors = ["Ryan M. <peicesreeses3@gmail.com>"]
 description = "RustProxy - Professional SOCKS5 proxy server with enterprise features"
 license = "MIT"
 repository = "https://github.com/yourusername/rustproxy"

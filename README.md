@@ -1,6 +1,6 @@
 # 🚀 RustProxy - Professional SOCKS5 Proxy Server
 
-**Created by [Your Name] - Professional Network Solutions**
+**Created by Ryan M. - Professional Network Solutions**
 
 A high-performance, enterprise-grade SOCKS5 proxy server built with Rust for maximum security, reliability, and performance.
 
@@ -165,10 +165,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**[Your Name]** - *Professional Network Solutions*
+**Ryan M.** - *Professional Network Solutions*
 
 - GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your-email@domain.com
+- Email: peicesreeses3@gmail.com
 - LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
 
 ## 🙏 Acknowledgments

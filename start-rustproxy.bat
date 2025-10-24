@@ -1,11 +1,11 @@
 @echo off
 REM RustProxy Quick Start Script
-REM Created by [Your Name] - Professional Network Solutions
+REM Created by Ryan M. - Professional Network Solutions
 
 echo.
 echo ========================================
 echo   RustProxy - Professional SOCKS5 Proxy
-echo   Created by [Your Name]
+echo   Created by Ryan M.
 echo ========================================
 echo.
 

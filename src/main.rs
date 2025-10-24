@@ -1,6 +1,6 @@
 //! RustProxy - Professional SOCKS5 Proxy Server
 //!
-//! Created by [Your Name] - Professional Network Solutions
+//! Created by Ryan M. - Professional Network Solutions
 //!
 //! A high-performance, enterprise-grade SOCKS5 proxy server built with Rust
 //! for maximum security, reliability, and performance.
@@ -22,11 +22,11 @@ use rustproxy::{
 #[command(name = "rustproxy")]
 #[command(about = "RustProxy - Professional SOCKS5 Proxy Server")]
 #[command(version)]
-#[command(author = "[Your Name] - Professional Network Solutions")]
+#[command(author = "Ryan M. - Professional Network Solutions")]
 #[command(long_about = "
 RustProxy - Professional SOCKS5 Proxy Server
 
-Created by [Your Name] - Professional Network Solutions
+Created by Ryan M. - Professional Network Solutions
 
 A high-performance, enterprise-grade SOCKS5 proxy server built with Rust
 for maximum security, reliability, and performance.
@@ -105,7 +105,7 @@ async fn main() -> Result<()> {
         "Starting RustProxy v{} - Professional SOCKS5 Proxy Server",
         env!("CARGO_PKG_VERSION")
     );
-    info!("Created by [Your Name] - Professional Network Solutions");
+    info!("Created by Ryan M. - Professional Network Solutions");
 
     // Load configuration with priority: CLI args > config file > environment > defaults
     let mut config = if args.config.exists() {

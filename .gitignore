@@ -120,13 +120,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Kiro IDE specific (keep specs but ignore other IDE files)
-.kiro/settings/
-.kiro/cache/
-.kiro/temp/
-
-# Keep important files that might look like they should be ignored
-!.kiro/specs/
+# Kiro IDE specific - ignore all .kiro files
+.kiro/
 !examples/
 !docs/
 !scripts/

@@ -1,0 +1,46 @@
+# SOCKS5 Proxy Server Production Configuration
+
+[server]
+bind_addr = "0.0.0.0:1080"
+max_connections = 5000
+connection_timeout = "10m"
+buffer_size = 16384
+
+[auth]
+enabled = true
+method = "userpass"
+
+# Add your production users here
+[[auth.users]]
+username = "prod_user"
+password = "change_this_password"
+enabled = true
+
+[access_control]
+enabled = true
+default_policy = "block"  # More restrictive for production
+
+# Example production rules - customize as needed
+[[access_control.rules]]
+pattern = "*.internal.company.com"
+action = "allow"
+
+[[access_control.rules]]
+pattern = "10.0.0.0/8"
+action = "allow"
+
+[[access_control.rules]]
+pattern = "192.168.0.0/16"
+action = "allow"
+
+[routing]
+enabled = false
+upstream_proxies = []
+
+[monitoring]
+enabled = true
+metrics_addr = "0.0.0.0:9090"
+log_level = "info"
+prometheus_enabled = true
+collect_connection_stats = true
+max_historical_connections = 50000

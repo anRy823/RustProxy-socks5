@@ -1,0 +1,142 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# Logs
+*.log
+logs/
+*.out
+
+# Configuration files with sensitive data
+config.local.toml
+config.secret.toml
+*.key
+*.pem
+*.crt
+secrets/
+
+# Test artifacts
+test_results/
+*.test
+coverage/
+
+# Build artifacts
+dist/
+build/
+*.deb
+*.rpm
+*.msi
+
+# Runtime files
+*.pid
+*.sock
+*.tmp
+temp/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Docker
+.dockerignore
+
+# Monitoring and metrics
+prometheus_data/
+grafana_data/
+
+# GeoIP databases (these are large and should be downloaded)
+*.mmdb
+geoip/
+
+# Certificate files
+certs/
+ssl/
+
+# Performance profiling
+*.prof
+perf.data*
+
+# Core dumps
+core
+core.*
+
+# Editor temporary files
+.#*
+\#*#
+
+# Python (for test scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node.js (if any JS tooling is added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Kiro IDE specific (keep specs but ignore other IDE files)
+.kiro/settings/
+.kiro/cache/
+.kiro/temp/
+
+# Keep important files that might look like they should be ignored
+!.kiro/specs/
+!examples/
+!docs/
+!scripts/
+!docker/
+!config/config.prod.toml
+!config.simple.toml
+!config.toml
+!test_*.ps1
+!test_*.py
+!*.md
+!LICENSE
+!Dockerfile
+!docker-compose*.yml

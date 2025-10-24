@@ -1,0 +1,118 @@
+# RustProxy - Simple Configuration
+# Created by [Your Name] - Professional Network Solutions
+#
+# This is a beginner-friendly configuration file.
+# Copy this to 'config.toml' and customize as needed.
+
+[server]
+bind_addr = "127.0.0.1:1080"        # Proxy listens on localhost:1080
+max_connections = 100                # Allow up to 100 simultaneous connections
+connection_timeout = "30s"          # 30 second timeout for connections
+buffer_size = 8192                  # 8KB buffer for data transfer
+max_memory_mb = 256                 # Use up to 256MB of memory
+connection_pool_size = 10           # Pool size for upstream connections
+enable_keepalive = true             # Keep connections alive for efficiency
+keepalive_interval = "30s"          # Check keepalive every 30 seconds
+handshake_timeout = "10s"           # SOCKS5 handshake timeout
+idle_timeout = "300s"               # Close idle connections after 5 minutes
+shutdown_timeout = "30s"            # Wait 30 seconds for graceful shutdown
+
+[auth]
+enabled = true                      # Require username/password
+method = "userpass"                 # Use username/password authentication
+
+# Add users who can connect to your proxy
+[[auth.users]]
+username = "admin"                  # Change this username
+password = "secure123"              # Change this password
+enabled = true
+
+[[auth.users]]
+username = "user1"                  # Add more users as needed
+password = "password123"
+enabled = true
+
+[access_control]
+enabled = true                      # Enable website filtering
+default_policy = "allow"            # Allow all websites by default
+
+# Example: Block social media (uncomment to enable)
+# [[access_control.rules]]
+# pattern = "*.facebook.com"
+# action = "block"
+# reason = "Social media blocked"
+
+# Example: Block adult content (uncomment to enable)
+# [[access_control.rules]]
+# pattern = "*.pornhub.com"
+# action = "block"
+# reason = "Adult content blocked"
+
+[routing]
+enabled = false                     # Keep routing simple for beginners
+upstream_proxies = []
+rules = []
+
+[routing.smart_routing]
+enabled = false
+health_check_interval = "30s"
+health_check_timeout = "5s"
+min_measurements = 3
+enable_latency_routing = true
+enable_health_routing = true
+
+[security.rate_limiting]
+enabled = true                      # Prevent connection abuse
+connections_per_ip_per_minute = 60  # Max 60 connections per IP per minute
+connections_per_ip_burst = 10       # Allow bursts of 10 connections
+auth_attempts_per_ip_per_minute = 10 # Max 10 login attempts per minute
+auth_attempts_per_ip_burst = 3      # Allow 3 quick login attempts
+global_connections_per_second = 1000 # Global connection rate limit
+cleanup_interval_seconds = 300     # Clean up old entries every 5 minutes
+block_duration_minutes = 15        # Block abusive IPs for 15 minutes
+
+[security.ddos_protection]
+enabled = true                      # Protect against DDoS attacks
+connection_threshold = 50           # Trigger protection at 50 connections
+time_window_seconds = 60           # Check connections in 60-second windows
+block_duration_minutes = 30        # Block attackers for 30 minutes
+max_connections_per_ip = 10         # Max 10 simultaneous connections per IP
+global_connection_threshold = 5000  # Global connection limit
+enable_progressive_delays = true    # Slow down suspicious connections
+base_delay_ms = 100                # Start with 100ms delay
+max_delay_ms = 5000                # Max 5 second delay
+cleanup_interval_seconds = 300     # Clean up every 5 minutes
+
+[security.fail2ban]
+enabled = true                      # Block failed login attempts
+max_auth_failures = 5              # Block after 5 failed logins
+failure_window_minutes = 10        # Count failures in 10-minute windows
+ban_duration_minutes = 30          # Ban for 30 minutes
+progressive_ban_multiplier = 2.0    # Double ban time for repeat offenders
+max_ban_duration_hours = 24        # Maximum ban time is 24 hours
+enable_progressive_delays = true    # Add delays for failed attempts
+base_delay_ms = 1000               # Start with 1 second delay
+max_delay_ms = 30000               # Max 30 second delay
+whitelist_ips = ["127.0.0.1"]     # Never block localhost
+cleanup_interval_seconds = 300     # Clean up every 5 minutes
+
+[security.secrets]
+encrypt_config = false              # Don't encrypt config (keep simple)
+use_env_secrets = true             # Allow environment variable secrets
+secret_key_env = "RUSTPROXY_SECRET_KEY"
+config_encryption_key_env = "RUSTPROXY_CONFIG_KEY"
+
+[monitoring]
+enabled = true                      # Enable basic monitoring
+metrics_addr = "127.0.0.1:9090"    # Metrics available at localhost:9090
+log_level = "info"                  # Show info, warning, and error messages
+prometheus_enabled = false          # Disable Prometheus (advanced feature)
+collect_connection_stats = true     # Track connection statistics
+max_historical_connections = 1000   # Keep stats for 1000 connections
+
+[monitoring.management_api]
+enabled = false                     # Disable management API (advanced feature)
+bind_addr = "127.0.0.1:8080"
+
+[monitoring.management_api.auth]
+enabled = false

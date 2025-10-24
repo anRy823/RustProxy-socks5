@@ -1,0 +1,128 @@
+# SOCKS5 Proxy Server Configuration
+
+[server]
+bind_addr = "127.0.0.1:1080"
+max_connections = 1000
+connection_timeout = "5m"
+buffer_size = 8192
+shutdown_timeout = "30s"
+idle_timeout = "1m"
+handshake_timeout = "10s"
+max_memory_mb = 512
+connection_pool_size = 10
+enable_keepalive = true
+keepalive_interval = "30s"
+
+[auth]
+enabled = false
+method = "none"
+users = []
+
+# Example with authentication enabled:
+# [auth]
+# enabled = true
+# method = "userpass"
+# [[auth.users]]
+# username = "user1"
+# password = "password1"
+# enabled = true
+# 
+# [[auth.users]]
+# username = "user2"
+# password = "password2"
+# enabled = true
+
+[access_control]
+enabled = false
+default_policy = "allow"
+rules = []
+
+# Example access control rules:
+# [[access_control.rules]]
+# pattern = "*.example.com"
+# action = "block"
+# ports = [80, 443]
+# 
+# [[access_control.rules]]
+# pattern = "192.168.1.*"
+# action = "allow"
+
+[routing]
+enabled = false
+upstream_proxies = []
+rules = []
+
+[routing.smart_routing]
+enabled = false
+health_check_interval = "30s"
+health_check_timeout = "5s"
+min_measurements = 3
+enable_latency_routing = true
+enable_health_routing = true
+
+# Example upstream proxy configuration:
+# [[routing.upstream_proxies]]
+# name = "upstream1"
+# addr = "192.168.1.100:1080"
+# protocol = "socks5"
+# 
+# [routing.upstream_proxies.auth]
+# username = "upstream_user"
+# password = "upstream_pass"
+
+[monitoring]
+enabled = true
+metrics_addr = "127.0.0.1:9090"
+log_level = "info"
+prometheus_enabled = true
+collect_connection_stats = true
+max_historical_connections = 10000
+
+[monitoring.management_api]
+enabled = true
+bind_addr = "127.0.0.1:8080"
+
+[monitoring.management_api.auth]
+enabled = true
+api_key = "change-me-in-production"
+
+[security.rate_limiting]
+enabled = true
+connections_per_ip_per_minute = 60
+connections_per_ip_burst = 10
+auth_attempts_per_ip_per_minute = 10
+auth_attempts_per_ip_burst = 3
+global_connections_per_second = 1000
+cleanup_interval_seconds = 300
+block_duration_minutes = 15
+
+[security.ddos_protection]
+enabled = true
+connection_threshold = 50
+time_window_seconds = 60
+block_duration_minutes = 30
+max_connections_per_ip = 10
+global_connection_threshold = 5000
+enable_progressive_delays = true
+base_delay_ms = 100
+max_delay_ms = 5000
+cleanup_interval_seconds = 300
+
+[security.fail2ban]
+enabled = true
+max_auth_failures = 5
+failure_window_minutes = 10
+ban_duration_minutes = 30
+progressive_ban_multiplier = 2.0
+max_ban_duration_hours = 24
+enable_progressive_delays = true
+base_delay_ms = 1000
+max_delay_ms = 30000
+whitelist_ips = []
+cleanup_interval_seconds = 300
+
+[security.secrets]
+encrypt_config = false
+use_env_secrets = true
+secret_key_env = "SOCKS5_SECRET_KEY"
+config_encryption_key_env = "SOCKS5_CONFIG_KEY"

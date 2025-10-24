@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  socks5-proxy:
+    image: socks5-proxy:latest
+    container_name: socks5-proxy-prod
+    ports:
+      - "1080:1080"
+      - "9090:9090"
+    volumes:
+      - ./config/config.prod.toml:/app/config/config.toml:ro
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - RUST_LOG=info
+    restart: always
+    networks:
+      - socks5-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "timeout", "5", "bash", "-c", "</dev/tcp/localhost/1080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  socks5-network:
+    driver: bridge

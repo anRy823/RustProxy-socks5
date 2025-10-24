@@ -1,0 +1,146 @@
+# Example configuration demonstrating custom routing rules
+
+[server]
+bind_addr = "127.0.0.1:1080"
+max_connections = 1000
+connection_timeout = "5m"
+buffer_size = 8192
+
+[auth]
+enabled = false
+method = "none"
+users = []
+
+[access_control]
+enabled = false
+default_policy = "allow"
+rules = []
+
+[routing]
+enabled = true
+
+# Upstream proxy configurations
+[[routing.upstream_proxies]]
+name = "corporate_proxy"
+addr = "10.0.0.100:8080"
+protocol = "socks5"
+
+[routing.upstream_proxies.auth]
+username = "corp_user"
+password = "corp_pass"
+
+[[routing.upstream_proxies]]
+name = "tor_proxy"
+addr = "127.0.0.1:9050"
+protocol = "socks5"
+
+# Smart routing configuration
+[routing.smart_routing]
+enabled = true
+health_check_interval = "30s"
+health_check_timeout = "5s"
+min_measurements = 3
+enable_latency_routing = true
+enable_health_routing = true
+
+# Custom routing rules (evaluated in priority order)
+[[routing.rules]]
+id = "block_malware_domains"
+priority = 1000
+pattern = "*.malware.com"
+enabled = true
+
+[routing.rules.action]
+type = "Block"
+config = { reason = "Blocked malware domain" }
+
+[[routing.rules]]
+id = "redirect_internal_dns"
+priority = 900
+pattern = "internal.company.com"
+enabled = true
+
+[routing.rules.action]
+type = "Redirect"
+config = { target = "10.0.0.50:53" }
+
+[[routing.rules]]
+id = "corporate_traffic"
+priority = 800
+pattern = "*.company.com"
+enabled = true
+ports = [80, 443]
+
+[routing.rules.action]
+type = "Proxy"
+config = { upstream_id = "corporate_proxy" }
+
+[[routing.rules]]
+id = "tor_for_privacy"
+priority = 700
+pattern = "*.onion"
+enabled = true
+
+[routing.rules.action]
+type = "Proxy"
+config = { upstream_id = "tor_proxy" }
+
+[[routing.rules]]
+id = "proxy_chain_example"
+priority = 650
+pattern = "*.secure-site.com"
+enabled = true
+
+[routing.rules.action]
+type = "ProxyChain"
+config = { upstream_ids = ["corporate_proxy", "tor_proxy"] }
+
+[[routing.rules]]
+id = "block_social_media"
+priority = 600
+pattern = "*.facebook.com"
+enabled = false
+ports = [80, 443]
+source_ips = ["192.168.1.0/24"]
+
+[routing.rules.action]
+type = "Block"
+config = { reason = "Social media blocked during work hours" }
+
+[[routing.rules]]
+id = "allow_dev_servers"
+priority = 500
+pattern = "localhost"
+enabled = true
+users = ["developer", "admin"]
+
+[routing.rules.action]
+type = "Allow"
+
+[[routing.rules]]
+id = "wildcard_block_ads"
+priority = 400
+pattern = "*ads*"
+enabled = true
+
+[routing.rules.action]
+type = "Block"
+config = { reason = "Advertisement blocked" }
+
+[[routing.rules]]
+id = "regex_pattern_example"
+priority = 300
+pattern = "^.*\\.test\\.(com|org)$"
+enabled = true
+
+[routing.rules.action]
+type = "Block"
+config = { reason = "Test domains blocked" }
+
+[monitoring]
+enabled = true
+metrics_addr = "127.0.0.1:9090"
+log_level = "info"
+prometheus_enabled = true
+collect_connection_stats = true
+max_historical_connections = 10000

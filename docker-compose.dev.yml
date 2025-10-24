@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  socks5-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder  # Use builder stage for development with more tools
+    volumes:
+      - .:/app:cached  # Mount source code for development
+      - cargo_cache:/usr/local/cargo/registry
+      - target_cache:/app/target
+    environment:
+      - RUST_LOG=debug
+      - RUST_BACKTRACE=full
+    command: ["cargo", "run", "--", "--config", "/app/config.toml"]
+    stdin_open: true
+    tty: true
+
+  # Test runner service for development
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    volumes:
+      - .:/app:cached
+      - cargo_cache:/usr/local/cargo/registry
+      - target_cache:/app/target
+    environment:
+      - RUST_LOG=debug
+      - RUST_BACKTRACE=full
+    command: ["cargo", "test"]
+    profiles:
+      - testing
+    networks:
+      - socks5-network
+
+volumes:
+  cargo_cache:
+  target_cache:

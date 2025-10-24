@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  socks5-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: socks5-proxy-dev
+    ports:
+      - "1080:1080"    # SOCKS5 proxy port
+      - "9090:9090"    # Metrics/Prometheus port
+    volumes:
+      - ./config.toml:/app/config/config.toml:ro
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - RUST_LOG=info
+      - RUST_BACKTRACE=1
+    restart: unless-stopped
+    networks:
+      - socks5-network
+    healthcheck:
+      test: ["CMD", "timeout", "5", "bash", "-c", "</dev/tcp/localhost/1080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: socks5-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - socks5-network
+    profiles:
+      - monitoring
+
+  # Optional: Grafana for metrics visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: socks5-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - socks5-network
+    profiles:
+      - monitoring
+    depends_on:
+      - prometheus
+
+networks:
+  socks5-network:
+    driver: bridge
+
+volumes:
+  prometheus_data:
+  grafana_data:
